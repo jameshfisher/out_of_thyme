@@ -1,5 +1,7 @@
 # Out of Thyme
 
 ```
-POST /$1 with body "empty" or "full"
+GET /
+GET /:herb
+POST /:herb with body "empty" or "full"
 ```

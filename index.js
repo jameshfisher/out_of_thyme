@@ -1,6 +1,6 @@
 var http = require('http');
 
-global.state = {'thyme': 'empty'};
+global.state = {};
 
 var getHerbState = function (herb) {
   if (global.state.hasOwnProperty(herb)) {
@@ -14,6 +14,11 @@ var setHerbState = function (herb, herbState) {
   global.state[herb] = herbState;
 };
 
+setHerbState('thyme', 'empty');
+setHerbState('oregano', 'empty');
+setHerbState('basil', 'empty');
+setHerbState('sage', 'empty');
+
 var ughReadBody = function(request, cb) {
   var body = '';
   request.on('data', function (data) {
@@ -25,15 +30,19 @@ var ughReadBody = function(request, cb) {
 };
 
 var server = http.createServer(function (request, response) {
-  var herb = request.url.substr(1);
-  response.writeHead(200, {"Content-Type": "text/plain"});
-  if (request.method == 'GET') {
-    response.end(getHerbState(herb));
+  if (request.url === "/") {
+    response.end(JSON.stringify(global.state));
   } else {
-    ughReadBody(request, function(body) {
-      setHerbState(herb, body);
-      response.end(body);
-    });
+    var herb = request.url.substr(1);
+    response.writeHead(200, {"Content-Type": "text/plain"});
+    if (request.method == 'GET') {
+      response.end(getHerbState(herb));
+    } else {
+      ughReadBody(request, function(body) {
+        setHerbState(herb, body);
+        response.end(body);
+      });
+    }
   }
 });
 
