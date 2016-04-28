@@ -1,4 +1,7 @@
 var http = require('http');
+var nodeStatic = require('node-static');
+
+var fileServer = new nodeStatic.Server('.', { indexFile: "index.htm" });
 
 global.state = {};
 
@@ -30,10 +33,10 @@ var ughReadBody = function(request, cb) {
 };
 
 var server = http.createServer(function (request, response) {
-  if (request.url === "/") {
+  if (request.url === "/rack") {
     response.end(JSON.stringify(global.state));
-  } else {
-    var herb = request.url.substr(1);
+  } else if (request.url.startsWith("/rack/")) {
+    var herb = request.url.substr(6);
     response.writeHead(200, {"Content-Type": "text/plain"});
     if (request.method == 'GET') {
       response.end(getHerbState(herb));
@@ -43,6 +46,8 @@ var server = http.createServer(function (request, response) {
         response.end(body);
       });
     }
+  } else {
+    fileServer.serve(request, response);
   }
 });
 
