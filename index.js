@@ -1,3 +1,4 @@
+require('dotenv').config({silent: true})
 var http = require('http');
 var nodeStatic = require('node-static');
 
@@ -15,8 +16,21 @@ var getHerbState = function (herb) {
 
 var setHerbState = function (herb, herbState) {
   global.state[herb] = herbState;
+
+  pusher.trigger('herbs', 'update', {
+    herb: herb,
+    state: herbState
+  })
 };
 
+
+const Pusher = require('pusher')
+const pusher = new Pusher({
+  appId:   process.env.PUSHER_APP_ID,
+  key:     process.env.PUSHER_APP_KEY,
+  secret:  process.env.PUSHER_SECRET_KEY,
+  cluster: process.env.PUSHER_CLUSTER
+})
 
 setHerbState('satureja', 'empty');
 setHerbState('origanum', 'empty');

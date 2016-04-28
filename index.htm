@@ -37,13 +37,13 @@
     <!--<h1>Out of Thyme</h1>-->
     <div id="rack">
     </div>
+
+    <script src="https://js.pusher.com/3.0/pusher.min.js"></script>
     <script language="javascript">
-      var req = new XMLHttpRequest();
-      req.addEventListener("load", function() {
-        document.getElementById("rack").innerText = this.responseText;
-      });
-      req.open("GET", "/rack");
-      req.send();
+      var pusher = new Pusher('0670ce993de134664470', {
+        cluster: 'eu',
+        encrypted: true
+      })
 
       fetch('/rack')
         .then( response => response.json() )
@@ -53,11 +53,21 @@
             var div = document.createElement('div')
             div.style.backgroundImage = `url('herbs/${herb}.png')`
             div.className = 'herb'
+            div.id = 'herb_' + herb
 
             rack.appendChild(div)
             div.classList.toggle('full', herbs[herb] == 'full')
 
           })
+
+
+          var channel = pusher.subscribe('herbs');
+          channel.bind('update', function(data) {
+            console.log(data);
+            var div = document.getElementById('herb_' + data.herb)
+            div.classList.toggle('full', data.state == 'full')
+          });
+
         })
     </script>
   </body>
