@@ -25,3 +25,7 @@ hypericum - st. john's wort
 tanacetum - tansy
 linium - flax
 ```
+
+## Credits
+
+Image source: http://www.devadevacafe.com/wp-content/uploads/2012/12/herb-garden-botanical-.jpg

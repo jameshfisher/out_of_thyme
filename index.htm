@@ -3,13 +3,29 @@
   <head>
     <meta charset="utf-8"/>
     <style>
+      html {
+        height: 100vh;
+        width: 100vw;
+      }
       body {
-        background-image: url('./herbs.jpg'); /* source: http://www.devadevacafe.com/wp-content/uploads/2012/12/herb-garden-botanical-.jpg */
+        margin: 0;
+        width: 200vw;
+        height: 200vh;
+      }
+      div.herb {
+        width: 200vw;
+        height: 200vh;
+        top: 0;
+        left: 0;
+        position: absolute;
       }
     </style>
   </head>
   <body>
-    <h1>Out of Thyme</h1>
+    <div class="herb" style="background-image: url('herbs/satureja.png');"></div>
+    <div class="herb" style="background-image: url('herbs/origanum.png');"></div>
+
+    <!--<h1>Out of Thyme</h1>-->
     <div id="rack">
     </div>
     <script language="javascript">
