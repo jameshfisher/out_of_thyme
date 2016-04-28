@@ -17,10 +17,21 @@ var setHerbState = function (herb, herbState) {
   global.state[herb] = herbState;
 };
 
-setHerbState('thyme', 'empty');
-setHerbState('oregano', 'empty');
-setHerbState('basil', 'empty');
-setHerbState('sage', 'empty');
+
+setHerbState('satureja', 'empty');
+setHerbState('origanum', 'empty');
+setHerbState('salvia', 'empty');
+setHerbState('mentha', 'empty');
+setHerbState('petroselinum', 'empty');
+setHerbState('cichorium', 'empty');
+setHerbState('carum', 'empty');
+setHerbState('melissa', 'empty');
+setHerbState('lavendula', 'empty');
+setHerbState('levisticum', 'empty');
+setHerbState('calendula', 'empty');
+setHerbState('hypericum', 'empty');
+setHerbState('tanacetum', 'empty');
+setHerbState('linium', 'empty');
 
 var ughReadBody = function(request, cb) {
   var body = '';

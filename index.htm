@@ -18,24 +18,21 @@
         top: 0;
         left: 0;
         position: absolute;
+
+        transition: .2s;
+        -webkit-filter: grayscale(100%);
+        filter: grayscale(100%);
+        opacity: 0.2;
+      }
+
+      div.herb.full {
+        -webkit-filter: none;
+        filter: none;
+        opacity: 1;
       }
     </style>
   </head>
   <body>
-    <div class="herb" style="background-image: url('herbs/satureja.png');"></div>
-    <div class="herb" style="background-image: url('herbs/origanum.png');"></div>
-    <div class="herb" style="background-image: url('herbs/salvia.png');"></div>
-    <div class="herb" style="background-image: url('herbs/mentha.png');"></div>
-    <div class="herb" style="background-image: url('herbs/petroselinum.png');"></div>
-    <div class="herb" style="background-image: url('herbs/cichorium.png');"></div>
-    <div class="herb" style="background-image: url('herbs/carum.png');"></div>
-    <div class="herb" style="background-image: url('herbs/melissa.png');"></div>
-    <div class="herb" style="background-image: url('herbs/lavendula.png');"></div>
-    <div class="herb" style="background-image: url('herbs/levisticum.png');"></div>
-    <div class="herb" style="background-image: url('herbs/calendula.png');"></div>
-    <div class="herb" style="background-image: url('herbs/hypericum.png');"></div>
-    <div class="herb" style="background-image: url('herbs/tanacetum.png');"></div>
-    <div class="herb" style="background-image: url('herbs/linium.png');"></div>
 
     <!--<h1>Out of Thyme</h1>-->
     <div id="rack">
@@ -47,6 +44,21 @@
       });
       req.open("GET", "/rack");
       req.send();
+
+      fetch('/rack')
+        .then( response => response.json() )
+        .then( herbs => {
+          Object.keys(herbs).forEach( herb => {
+
+            var div = document.createElement('div')
+            div.style.backgroundImage = `url('herbs/${herb}.png')`
+            div.className = 'herb'
+
+            rack.appendChild(div)
+            div.classList.toggle('full', herbs[herb] == 'full')
+
+          })
+        })
     </script>
   </body>
 </html>
