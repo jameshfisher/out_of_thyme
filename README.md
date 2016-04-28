@@ -1,7 +1,8 @@
 # Out of Thyme
 
 ```
-GET /
-GET /:herb
-POST /:herb with body "empty" or "full"
+GET  /
+GET  /rack
+GET  /rack/:herb
+POST /rack/:herb with body "empty" or "full"
 ```
