@@ -1,20 +1,44 @@
-var express = require('express');
-var app = express();
+var http = require('http');
 
-app.set('port', (process.env.PORT || 5000));
+global.state = {'thyme': 'empty'};
 
-app.use(express.static(__dirname + '/public'));
+var getHerbState = function (herb) {
+  if (global.state.hasOwnProperty(herb)) {
+    return global.state[herb];
+  } else {
+    return 'empty';
+  }
+};
 
-// views is directory for all template files
-app.set('views', __dirname + '/views');
-app.set('view engine', 'ejs');
+var setHerbState = function (herb, herbState) {
+  global.state[herb] = herbState;
+};
 
-app.get('/', function(request, response) {
-  response.render('pages/index');
+var ughReadBody = function(request, cb) {
+  var body = '';
+  request.on('data', function (data) {
+    body += data;
+  });
+  request.on('end', function () {
+    cb(body);
+  });
+};
+
+var server = http.createServer(function (request, response) {
+  var herb = request.url.substr(1);
+  response.writeHead(200, {"Content-Type": "text/plain"});
+  if (request.method == 'GET') {
+    response.end(getHerbState(herb));
+  } else {
+    ughReadBody(request, function(body) {
+      setHerbState(herb, body);
+      response.end(body);
+    });
+  }
 });
 
-app.listen(app.get('port'), function() {
-  console.log('Node app is running on port', app.get('port'));
-});
+var port = process.env.PORT || 5000;
 
+server.listen(port);
 
+console.log("Server running at http://127.0.0.1:" + port + "/");

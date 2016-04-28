@@ -1,7 +1,7 @@
 {
-  "name": "node-js-getting-started",
+  "name": "out-of-thyme",
   "version": "0.2.5",
-  "description": "A sample Node.js app using Express 4",
+  "description": "Remember the Milk but exclusively for herbs",
   "engines": {
     "node": "5.9.1"
   },
@@ -15,12 +15,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/heroku/node-js-getting-started"
-  },
-  "keywords": [
-    "node",
-    "heroku",
-    "express"
-  ],
-  "license": "MIT"
+    "url": "https://github.com/jameshfisher/out_of_thyme"
+  }
 }
