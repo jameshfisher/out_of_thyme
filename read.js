@@ -19,16 +19,77 @@ var rl = readline.createInterface({
   terminal: true
 });
 
+const herbs = [
+'satureja',
+'origanum',
+'salvia',
+'mentha',
+'petroselinum',
+'cichorium',
+'carum',
+'melissa',
+'lavendula',
+'levisticum',
+'calendula',
+'hypericum',
+'tanacetum',
+'linium'
+]
+
+
+const SELECTING_HERB = 1
+const SELECTING_HERB_STATUS = 2
+
+var current = null
+var mode = SELECTING_HERB
+
+function reset() {
+  current = null
+  console.log('resetted')
+}
+
+var timer
+
 rl.on('line', function(line){
 
     var num = parseFloat(line.toString())
 
-    if(num == 2) {
-        set('thyme', 'empty')
+    clearTimeout(timer)
+
+    if(current) {
+      if(num == 2) {
+          set(current, 'empty')
+      }
+      if(num == 3) {
+          set(current, 'full')
+      }
+      reset()
+    } else {
+      
+      current = herbs[(num-1) % herbs.length]
+
+      timer = setTimeout(reset, 15000)
     }
-    if(num == 3) {
-        set('thyme', 'full')
-    }
+
+
+    //
+    // if(mode === SELECTING_HERB) {
+    //   current = herbs[(num-1) % herbs.length]
+    //   console.log("Selected: " + current)
+    //   mode = SELECTING_HERB_STATUS
+    // } else {
+    //   if(num == 1) {
+    //       mode = SELECTING_HERB
+    //   }
+    //   if(num == 2) {
+    //       set(current, 'empty')
+    //   }
+    //   if(num == 3) {
+    //       set(current, 'full')
+    //   }
+    // }
+
+
 })
 
 
