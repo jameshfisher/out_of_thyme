@@ -19,7 +19,8 @@ var setHerbState = function (herb, herbState) {
 
   pusher.trigger('herbs', 'update', {
     herb: herb,
-    state: herbState
+    state: herbState,
+    full: state
   })
 };
 
