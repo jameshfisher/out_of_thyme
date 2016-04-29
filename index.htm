@@ -2,10 +2,16 @@
 <html>
   <head>
     <meta charset="utf-8"/>
+
+    <link href="bigpicture.css" rel="stylesheet">
+    <style>
+    body, html { margin: 0; }
+    </style>
     <style>
       html {
         height: 100vh;
         width: 100vw;
+        overflow: hidden;
       }
       body {
         margin: 0;
@@ -13,8 +19,8 @@
         height: 200vh;
       }
       div.herb {
-        width: 200vw;
-        height: 200vh;
+        width: 1000vw;
+        height: 1000vh;
         top: 0;
         left: 0;
         position: absolute;
@@ -34,10 +40,15 @@
   </head>
   <body>
 
-    <!--<h1>Out of Thyme</h1>-->
-    <div id="rack">
+    <div id="bigpicture-container">
+      <div id="bigpicture" data-zoom="0.5" data-x="721" data-y="480">
+        <div id="rack">
+        </div>
+      </div>
     </div>
 
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+    <script type="text/javascript" src="bigpicture.js"></script>
     <script src="https://js.pusher.com/3.0/pusher.min.js"></script>
     <script language="javascript">
       var pusher = new Pusher('0670ce993de134664470', {
