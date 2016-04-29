@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <style media="screen">
+      button {margin: .2em; font-size: 1em;}
+    </style>
+  </head>
+  <body>
+    <script language="javascript">
+      fetch('/rack')
+        .then( response => response.json() )
+        .then( herbs => {
+          Object.keys(herbs).forEach( herb => {
+
+            var div = document.createElement('div')
+
+            !['full', 'empty'].forEach( state => {
+              var button = document.createElement('button')
+              button.innerText = state
+              button.onclick = _ => fetch('/rack/' + herb, {method: "POST", body: state})
+              div.appendChild(button)
+            })
+
+            div.appendChild(document.createTextNode(herb))
+
+            document.body.appendChild(div)
+          })
+        })
+    </script>
+  </body>
+</html>
