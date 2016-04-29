@@ -21,6 +21,23 @@ self.addEventListener('install', function(event) {
         'herbs/hypericum.png',
         'herbs/tanacetum.png',
         'herbs/linium.png',
+        'herbs_single/calendula.png',
+        'herbs_single/carum.png',
+        'herbs_single/cichorium.png',
+        'herbs_single/hypericum.png',
+        'herbs_single/lavendula.png',
+        'herbs_single/levisticum.png',
+        'herbs_single/linium.png',
+        'herbs_single/melissa.png',
+        'herbs_single/mentha.png',
+        'herbs_single/origanum.png',
+        'herbs_single/petroselinum.png',
+        'herbs_single/salvia.png',
+        'herbs_single/satureja.png',
+        'herbs_single/tanacetum.png',
+        'immersion.html',
+        'tween.js',
+        'three.min.js',
         '/'
       ])
     })
