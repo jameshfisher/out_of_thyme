@@ -254,9 +254,9 @@ var bigpicture = (function() {
       return;
     }
     if ((e.ctrlKey && !e.altKey || e.metaKey) && e.keyCode == 70) {         // CTRL+F
-      e.preventDefault();
-      setTimeout(function() { query = window.prompt("What are you looking for?", ""); findNext(query); }, 10);
-      return;
+      //e.preventDefault();
+      // setTimeout(function() { query = window.prompt("What are you looking for?", ""); findNext(query); }, 10);
+      //return;
     }
     if (e.keyCode == 114) {                 // F3
       e.preventDefault();
