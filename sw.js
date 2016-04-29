@@ -6,6 +6,7 @@ self.addEventListener('install', function(event) {
   event.waitUntil(
     caches.open('v1').then(function(cache) {
       return cache.addAll([
+        'herbs/_satureja-lg.png',
         'herbs/satureja.png',
         'herbs/origanum.png',
         'herbs/salvia.png',
@@ -32,10 +33,49 @@ self.addEventListener('install', function(event) {
 
 
 var rack = []
-function repopulateRack() {
+function repopulateRack(noisy) {
   return fetch('/rack')
     .then(r => r.json() )
-    .then(data => rack = data)
+    .then(data => {
+      repopulateRackData(data, noisy)
+    })
+}
+
+function repopulateRackData (data, noisy) {
+    console.log("___", data)
+
+    if(noisy) {
+
+      // if(satureja)
+
+      if(rack.satureja != data.satureja && data.satureja == 'empty'){
+
+        self.registration.showNotification("✨🌿 IMPORTANT MESSAGE 🌿✨", {
+          body: `🌿🌿🌿🌿🌿🌿🌿🌿🌿🌿🌿🌿
+       YOU'RE OUT OF THYME
+🌿🌿🌿🌿🌿🌿🌿🌿🌿🌿🌿🌿`,
+          icon: `herbs/_satureja-lg.png`
+          // tag: 'my-tag'
+        })
+      }
+
+      /* The generic (but too noisy?) one
+      Object.keys(data).forEach( k => {
+        if(rack[k] != data[k]){
+          self.registration.showNotification(k, {
+            body: `🌿🌿🌿🌿${k} is now ${data[k]}🌿🌿🌿🌿🌿`,
+            icon: `herbs/${k}.png`
+            // tag: 'my-tag'
+          })
+        }
+      })
+
+      */
+
+
+    }
+
+    rack = data
 }
 
 
@@ -65,7 +105,7 @@ self.addEventListener('activate', function(event) {
 })
 
 
-var rackRe = /\/rack/
+var rackRe = /\/rack$/
 
 self.addEventListener('fetch', function(event) {
 
@@ -102,5 +142,7 @@ var pusher = new Pusher('0670ce993de134664470', {
 
 var channel = pusher.subscribe('herbs')
 channel.bind('update', function(data) {
-  rack = data.full
+
+  repopulateRackData(data.full, true)
+  // rack = data.full
 })
